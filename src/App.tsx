@@ -46,9 +46,7 @@ function App() {
   const dispatch = useDispatch();
   const boards = useSelector((state: RootState) => state.boards);
   const board = boards.find((b) => b.isActive === true);
-  console.log("board", board);
   const columns = board?.columns;
-  console.log("columns", columns);
   return (
     <>
       <MantineProvider theme={theme}>

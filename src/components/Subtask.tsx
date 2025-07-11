@@ -25,9 +25,9 @@ function Subtask({ index, taskIndex, colIndex }: SubtaskProps) {
   };
 
   return (
-    <div className=" w-full flex hover:bg-[#635fc740] dark:hover:bg-[#635fc740] rounded-md relative items-center justify-start dark:bg-[#20212c]  p-3 gap-4  bg-[#f4f7fd]">
+    <div className=" w-full flex  rounded-md relative items-center justify-start  p-3 gap-4">
       <input
-        className=" w-4 h-4  accent-[#635fc7] cursor-pointer "
+        className=" w-4 h-4  cursor-pointer "
         type="checkbox"
         checked={checked}
         onChange={onChange}
