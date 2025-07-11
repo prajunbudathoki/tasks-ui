@@ -1,10 +1,11 @@
 import "@mantine/core/styles.css";
 import {
+  Button,
   createTheme,
   MantineProvider,
   type MantineColorsTuple,
 } from "@mantine/core";
-import { Sidebar } from "./components/sidebar/Sidebar";
+import { Layout } from "./components/layout";
 
 const myColor: MantineColorsTuple = [
   "#ecf4ff",
@@ -37,7 +38,9 @@ function App() {
   return (
     <>
       <MantineProvider theme={theme}>
-        <Sidebar />
+        <Layout>
+          <h1>Main content</h1>
+        </Layout>
       </MantineProvider>
     </>
   );
