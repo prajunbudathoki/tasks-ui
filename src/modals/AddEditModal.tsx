@@ -19,6 +19,8 @@ import {
 } from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
 import { DatePickerInput } from "@mantine/dates";
+import { useDispatch, useSelector } from "react-redux";
+import { boardSlice } from "../../redux/boardSlice";
 
 interface Column {
   id: string;
@@ -43,6 +45,7 @@ const AddEditBoardModal: React.FC<AddEditBoardModalProps> = ({
     { name: "Doing", tasks: [], id: uuidv4() },
   ],
 }) => {
+  const dispatch = useDispatch();
   const [name, setName] = useState(defaultName);
   const [columns, setColumns] = useState<Column[]>(defaultColumns);
   const [assignee, setAssignee] = useState<string | null>(null);
@@ -50,17 +53,16 @@ const AddEditBoardModal: React.FC<AddEditBoardModalProps> = ({
   const [priority, setPriority] = useState<string | null>(null);
   const [tags, setTags] = useState<string>("");
 
+  const board = useSelector((state: any) => state.boards).find(
+    (board: any) => board.isActive
+  );
+
   useEffect(() => {
-    if (type === "edit") {
+    if (type === "edit" && board) {
       setName(defaultName);
-      setColumns(
-        defaultColumns.map((col) => ({
-          ...col,
-          id: uuidv4(),
-        }))
-      );
+      setColumns(defaultColumns);
     }
-  }, [type, defaultName, defaultColumns]);
+  }, [type, defaultName, defaultColumns, board]);
 
   const updateColumnName = (id: string, newValue: string) => {
     setColumns((cols) =>
@@ -69,11 +71,31 @@ const AddEditBoardModal: React.FC<AddEditBoardModalProps> = ({
   };
 
   const deleteColumn = (id: string) => {
-    setColumns((cols) => cols.filter((col) => col.id !== id));
+    setColumns((cols) => {
+      const updatedCols = cols.filter((col) => col.id !== id);
+      return updatedCols.length > 0
+        ? updatedCols
+        : [{ name: "", tasks: [], id: uuidv4() }];
+    });
   };
 
   const addNewColumn = () => {
     setColumns((cols) => [...cols, { name: "", tasks: [], id: uuidv4() }]);
+  };
+
+  const handleSubmit = () => {
+    const payload = {
+      name,
+      newColumns: columns,
+    };
+
+    if (type === "add") {
+      dispatch(boardSlice.actions.addBoard(payload));
+    } else if (type === "edit" && board) {
+      dispatch(boardSlice.actions.editBoard(payload));
+    }
+
+    onClose();
   };
 
   return (
@@ -171,10 +193,7 @@ const AddEditBoardModal: React.FC<AddEditBoardModalProps> = ({
             color="indigo"
             mt="md"
             fullWidth
-            onClick={() => {
-              console.log("Submit Board:", { name, columns });
-              onClose();
-            }}
+            onClick={handleSubmit}
           >
             {type === "add" ? "Create New Board" : "Save Changes"}
           </Button>
