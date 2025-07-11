@@ -1,11 +1,12 @@
 import "@mantine/core/styles.css";
 import {
-  Button,
   createTheme,
   MantineProvider,
   type MantineColorsTuple,
 } from "@mantine/core";
 import { Layout } from "./components/layout";
+import { useState } from "react";
+import AddEditBoardModal from "./modals/AddEditModal";
 
 const myColor: MantineColorsTuple = [
   "#ecf4ff",
@@ -35,12 +36,18 @@ const theme = createTheme({
 });
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
       <MantineProvider theme={theme}>
-        <Layout>
+        <Layout openModal={() => setIsModalOpen(true)}>
           <h1>Main content</h1>
         </Layout>
+        <AddEditBoardModal
+          opened={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          type="add"
+        />
       </MantineProvider>
     </>
   );
