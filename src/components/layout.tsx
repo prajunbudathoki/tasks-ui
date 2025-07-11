@@ -9,7 +9,7 @@ interface LayoutProps {
 
 export function Layout({ children,openModal }: LayoutProps) {
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       <div>
         <Sidebar />
       </div>

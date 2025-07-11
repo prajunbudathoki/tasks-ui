@@ -63,12 +63,6 @@ function App() {
             </p>
           )}
         </Layout>
-
-        {/* <AddEditBoardModal
-          opened={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          type="add"
-        /> */}
         <AddEditTaskModal
           opened={isModalOpen}
           onClose={() => setIsModalOpen(false)}
