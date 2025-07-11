@@ -9,8 +9,15 @@ import {
   Select,
   ActionIcon,
 } from "@mantine/core";
-import { IconX } from "@tabler/icons-react";
+import {
+  IconCalendar,
+  IconFlag,
+  IconTag,
+  IconUser,
+  IconX,
+} from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
+import { DatePickerInput } from "@mantine/dates";
 
 interface Subtask {
   id: string;
@@ -58,6 +65,10 @@ const AddEditTaskModal: React.FC<AddEditTaskModalProps> = ({
   const [columnOptions, setColumnOptions] = useState<string[]>(
     initialData?.columnOptions || []
   );
+  const [assignee, setAssignee] = useState<string | null>(null);
+  const [dueDate, setDueDate] = useState<Date | null>(null);
+  const [priority, setPriority] = useState<string | null>(null);
+  const [tags, setTags] = useState<string>("");
 
   useEffect(() => {
     if (initialData) {
@@ -116,6 +127,43 @@ const AddEditTaskModal: React.FC<AddEditTaskModalProps> = ({
           value={description}
           onChange={(e) => setDescription(e.currentTarget.value)}
         />
+        <Group
+          grow
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "8px",
+          }}
+          gap={"xs"}
+          mt="md"
+        >
+          <Select
+            placeholder="Assignee"
+            data={["Alice", "Bob", "Charlie"]}
+            leftSection={<IconUser size={16} />}
+            value={assignee}
+            onChange={setAssignee}
+          />
+          <DatePickerInput
+            placeholder="Due Date"
+            value={dueDate}
+            onChange={setDueDate}
+            leftSection={<IconCalendar size={16} />}
+          />
+          <Select
+            placeholder="Priority"
+            data={["Low", "Medium", "High"]}
+            leftSection={<IconFlag size={16} />}
+            value={priority}
+            onChange={setPriority}
+          />
+          <TextInput
+            placeholder="Tags"
+            value={tags}
+            onChange={(e) => setTags(e.currentTarget.value)}
+            leftSection={<IconTag size={16} />}
+          />
+        </Group>
 
         <Stack>
           <label>Subtasks</label>

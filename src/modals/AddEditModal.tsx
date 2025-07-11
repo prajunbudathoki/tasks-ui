@@ -48,10 +48,7 @@ const AddEditBoardModal: React.FC<AddEditBoardModalProps> = ({
   const dispatch = useDispatch();
   const [name, setName] = useState(defaultName);
   const [columns, setColumns] = useState<Column[]>(defaultColumns);
-  const [assignee, setAssignee] = useState<string | null>(null);
-  const [dueDate, setDueDate] = useState<Date | null>(null);
-  const [priority, setPriority] = useState<string | null>(null);
-  const [tags, setTags] = useState<string>("");
+
 
   const board = useSelector((state: any) => state.boards).find(
     (board: any) => board.isActive
@@ -116,43 +113,6 @@ const AddEditBoardModal: React.FC<AddEditBoardModalProps> = ({
             value={name}
             onChange={(e) => setName(e.currentTarget.value)}
           />
-          <Group
-            grow
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "8px",
-            }}
-            gap={"xs"}
-            mt="md"
-          >
-            <Select
-              placeholder="Assignee"
-              data={["Alice", "Bob", "Charlie"]}
-              leftSection={<IconUser size={16} />}
-              value={assignee}
-              onChange={setAssignee}
-            />
-            <DatePickerInput
-              placeholder="Due Date"
-              value={dueDate}
-              onChange={setDueDate}
-              leftSection={<IconCalendar size={16} />}
-            />
-            <Select
-              placeholder="Priority"
-              data={["Low", "Medium", "High"]}
-              leftSection={<IconFlag size={16} />}
-              value={priority}
-              onChange={setPriority}
-            />
-            <TextInput
-              placeholder="Tags"
-              value={tags}
-              onChange={(e) => setTags(e.currentTarget.value)}
-              leftSection={<IconTag size={16} />}
-            />
-          </Group>
 
           <Text size="sm" c="dimmed" mt="md">
             Board Columns
