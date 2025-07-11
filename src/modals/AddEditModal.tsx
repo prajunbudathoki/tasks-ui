@@ -105,7 +105,6 @@ const AddEditBoardModal: React.FC<AddEditBoardModalProps> = ({
       title={type === "edit" ? "Edit Board" : "Add New Board"}
       centered
       size="lg"
-      overlayProps={{ blur: 4 }}
     >
       <Box>
         <Stack>
