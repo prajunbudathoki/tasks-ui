@@ -54,9 +54,11 @@ function App() {
       <MantineProvider theme={theme}>
         <Layout openModal={() => setIsModalOpen(true)}>
           {board ? (
-            columns?.map((_, colIndex) => (
-              <Column key={colIndex} colIndex={colIndex} />
-            ))
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide">
+              {columns?.map((_, colIndex) => (
+                <Column key={colIndex} colIndex={colIndex} />
+              ))}
+            </div>
           ) : (
             <p style={{ padding: "1rem", color: "gray" }}>
               No active board found.
