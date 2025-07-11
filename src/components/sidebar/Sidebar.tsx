@@ -1,5 +1,5 @@
 import { Button, Code, Group, ScrollArea, Stack, Text } from "@mantine/core";
-import { IconLayoutKanban } from "@tabler/icons-react";
+import { IconLayoutKanban, IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { boardSlice } from "../../../redux/boardSlice";
@@ -14,7 +14,7 @@ export function Sidebar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSelectBoard = (index: number) => {
-    dispatch(boardSlice.actions.setBoardActive(index));
+    dispatch(boardSlice.actions.setBoardActive({ index }));
   };
   const handleCreateNewBoard = (name: string, columns: any[]) => {
     dispatch(boardSlice.actions.addBoard({ name, newColumns: columns }));
@@ -27,6 +27,15 @@ export function Sidebar() {
           <Code fw={700}>v3.1.2</Code>
         </Group>
       </div>
+      <Button
+        variant="filled"
+        color="gray"
+        mt={10}
+        onClick={() => setIsModalOpen(true)}
+        leftSection={<IconPlus size={18} />}
+      >
+        Create New Board
+      </Button>
       <ScrollArea className={classes.links}>
         <Stack className={classes.linksInner} gap="xs">
           <Text size="xs" fw={700} className={classes.title}>
@@ -45,15 +54,6 @@ export function Sidebar() {
               {board.name}
             </Button>
           ))}
-
-          <Button
-            variant="subtle"
-            color="gray"
-            fullWidth
-            onClick={() => setIsModalOpen(true)}
-          >
-            + Create New Board
-          </Button>
         </Stack>
       </ScrollArea>
       <ActionToggle />

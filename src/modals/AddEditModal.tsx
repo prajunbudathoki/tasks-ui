@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from "react";
 import {
-  Modal,
-  TextInput,
+  ActionIcon,
+  Box,
   Button,
   Group,
-  Box,
+  Modal,
   Stack,
   Text,
-  ActionIcon,
-  Select,
+  TextInput
 } from "@mantine/core";
 import {
-  IconCalendar,
-  IconFlag,
-  IconTag,
-  IconUser,
-  IconX,
+  IconX
 } from "@tabler/icons-react";
-import { v4 as uuidv4 } from "uuid";
-import { DatePickerInput } from "@mantine/dates";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import { boardSlice } from "../../redux/boardSlice";
 
 interface Column {

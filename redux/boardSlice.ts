@@ -29,11 +29,8 @@ export const boardSlice = createSlice({
       state.splice(state.indexOf(board), 1);
     },
     setBoardActive: (state, action) => {
-      state.map((board, index) => {
-        index === action.payload.index
-          ? (board.isActive = true)
-          : (board.isActive = false);
-        return board;
+      state.forEach((board, index) => {
+        board.isActive = index === action.payload.index;
       });
     },
     addTask: (state, action) => {

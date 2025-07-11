@@ -8,7 +8,6 @@ import {
 import { Layout } from "./components/layout";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import AddEditBoardModal from "./modals/AddEditModal";
 import AddEditTaskModal from "./modals/AddEditTasksModal";
 import { useDispatch, useSelector } from "react-redux";
 import { boardSlice } from "../redux/boardSlice";
